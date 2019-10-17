@@ -25,6 +25,9 @@ def apply_coupons(cart, coupons)
       if  cart.include?(product) && num_c <= cart[product][:count]
         coupon_cart[new_name] = {price: coupon[:cost]/coupon[:num], clearance: cart[product][:clearance], count: num_c}
         coupon_cart[product][:count] -= num_c
+      elsif cart.include?(product) && coupon[:num] <= cart[product][:count]
+        coupon_cart[new_name] = {price: coupon[:cost]/coupon[:num], clearance: cart[product][:clearance], count: coupon[:num]}
+        coupon_cart[product][:count] -= coupon[:num]
       end
     end
   coupon_cart
